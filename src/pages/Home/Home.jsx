@@ -11,7 +11,7 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1); // State for current page
   const [itemsPerPage] = useState(9); // Items per page
-  const API = 'https://pokeapi.co/api/v2/pokemon?limit=50';
+  const API = 'https://pokeapi.co/api/v2/pokemon?limit=1300';
 
   const fetchPokemon = async () => {
     try {
@@ -27,7 +27,8 @@ const Home = () => {
 
       const detailedResPokemonData = await Promise.all(detailedPokemonData);
       setPokemon(detailedResPokemonData);
-    } catch (error) {
+    } 
+    catch (error) {
       console.log(error);
       setLoading(false);
     }
@@ -43,7 +44,8 @@ const Home = () => {
     const sortPokemon = [...pokemon].sort((a, b) => {
       if (sortBy === 'name') {
         return a.name.localeCompare(b.name);
-      } else if (sortBy === 'baseStats') {
+      } 
+      else if (sortBy === 'baseStats') {
         return a.stats[1].base_stat - b.stats[1].base_stat;
       }
     });
@@ -55,9 +57,10 @@ const Home = () => {
   const handlePokemonType = (e) => {
     const selectPokemonType = e.target.value;
     if (selectPokemonType === '') {
-      fetchPokemon(); // Reload all Pokémon
-    } else {
-      const filteredPokemon = pokemon.filter(
+      fetchPokemon(); 
+    } 
+    else {
+      const filteredPokemon = [...pokemon].filter(
         (pokemonType) => pokemonType.types[0].type.name === selectPokemonType
       );
       setPokemon(filteredPokemon);
